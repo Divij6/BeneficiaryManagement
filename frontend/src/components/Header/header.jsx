@@ -1,5 +1,5 @@
 import React from "react";
-
+import { NavLink, Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -7,38 +7,57 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-extrabold tracking-wide">NGO Portal</h1>
 
+        {/* Navigation Links */}
         <ul className="hidden md:flex gap-8 font-medium">
           <li>
-            <a href="#home" className="hover:text-yellow-300 transition">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
               Home
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a
-              href="#beneficiaries"
-              className="hover:text-yellow-300 transition"
+            <NavLink
+              to="/beneficiaries"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
             >
               Beneficiaries
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="#about" className="hover:text-yellow-300 transition">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
               About Us
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="#contact" className="hover:text-yellow-300 transition">
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
               Contact
-            </a>
+            </NavLink>
           </li>
         </ul>
 
-        <a
-          href=""
+        {/* Login Button */}
+        <Link
+          to="/login"
           className="hidden md:inline-block px-5 py-2 bg-yellow-400 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-300 transition"
         >
           Login
-        </a>
+        </Link>
       </div>
     </nav>
   );
