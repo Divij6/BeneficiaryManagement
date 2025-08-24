@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -23,12 +24,11 @@ export default function Home() {
             transparency, and impact.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a
-              href="#register"
+            <Link to='/register'
               className="px-6 py-3 rounded-2xl bg-yellow-400 text-gray-900 font-semibold shadow-lg hover:bg-yellow-300 transition"
             >
               Register Beneficiary
-            </a>
+            </Link>
             <a
               href="#learnmore"
               className="px-6 py-3 rounded-2xl border border-white font-semibold hover:bg-white hover:text-blue-700 transition"
