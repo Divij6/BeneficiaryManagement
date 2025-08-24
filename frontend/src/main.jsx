@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Home from './components/Home/Home.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 import UserDashboard from './components/Dashboard/UserDashboard.jsx'
+import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx'
 
 
 
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<App/>}>
       <Route path='' element={<Home/>}/>
       <Route path='/dashboard' element={<UserDashboard/>}/>
+      <Route path='/register' element={<RegistrationForm></RegistrationForm>}/>
     </Route>
   )
 )
