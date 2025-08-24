@@ -17,6 +17,7 @@ import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
 import Login from "./components/Authentication/Login.jsx";
 import Signup from "./components/Authentication/Signup.jsx";
 import ForgotPassword from "./components/Authentication/ForgotPasswords.jsx";
+import ProtectedRoute from "./components/protected routes/protected.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +25,11 @@ const router = createBrowserRouter(
       {/* Main app routes (with Header + Footer) */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="beneficiaries" element={<UserDashboard />} />
+        <Route path="beneficiaries" element={
+          // <ProtectedRoute>
+          //   </ProtectedRoute>
+              <UserDashboard />
+          } />
         <Route path="dashboard" element={<Dashboard />} />
       </Route>
 

@@ -14,7 +14,7 @@ export default function ForgotPassword() {
       });
       const data = await res.json();
       console.log("Password reset response:", data);
-      // TODO: show success message to user
+
     } catch (err) {
       console.error("Reset failed:", err);
     }
