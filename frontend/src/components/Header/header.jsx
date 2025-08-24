@@ -1,77 +1,66 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
-const Header = () => {
+const Navbar = () => {
   return (
-    <header className="bg-[#2D1F1F] text-white px-6 py-4 flex items-center justify-between">
-      {/* Logo */}
-      <Link to="/" className="text-xl font-bold tracking-wide">
-        NGO IMPACT
-      </Link>
+    <nav className="bg-blue-600 text-white px-6 py-4 shadow-lg">
+      <div className="container mx-auto flex justify-between items-center">
+        <h1 className="text-2xl font-extrabold tracking-wide">NGO Portal</h1>
 
-      {/* Navigation */}
-      <nav className="flex gap-6">
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            `flex items-center gap-1 ${
-              isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-            }`
-          }
+        {/* Navigation Links */}
+        <ul className="hidden md:flex gap-8 font-medium">
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/beneficiaries"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
+              Beneficiaries
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `transition ${isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"}`
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+
+        {/* Login Button */}
+        <Link
+          to="/login"
+          className="hidden md:inline-block px-5 py-2 bg-yellow-400 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-300 transition"
         >
-         Dashboard
-        </NavLink>
-
-        <NavLink
-          to="/beneficiaries"
-          className={({ isActive }) =>
-            isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-          }
-        >
-          Beneficiaries
-        </NavLink>
-
-        <NavLink
-          to="/programs"
-          className={({ isActive }) =>
-            isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-          }
-        >
-          Programs
-        </NavLink>
-
-        <NavLink
-          to="/progress"
-          className={({ isActive }) =>
-            isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-          }
-        >
-          Progress
-        </NavLink>
-
-        <NavLink
-          to="/notifications"
-          className={({ isActive }) =>
-            isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-          }
-        >
-           Notifications
-        </NavLink>
-
-        <NavLink
-          to="/reports"
-          className={({ isActive }) =>
-            isActive ? "font-semibold text-[#E8DCCC]" : "text-gray-300"
-          }
-        >
-            Reports
-        </NavLink>
-      </nav>
-
-      {/* Profile */}
-      <div className="text-sm">raghavjha</div>
-    </header>
+          Login
+        </Link>
+      </div>
+    </nav>
   );
 };
 
-export default Header;
+export default Navbar;
