@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Loginadmin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,17 +16,25 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("http://localhost:5000/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await res.json();
-      console.log("Login response:", data);
-      // TODO: handle token storage, redirect, errors
+      console.log("Admin login response:", data);
+
+      if (res.ok) {
+        localStorage.setItem("admin", JSON.stringify(data));
+        alert("Admin login successful!");
+        // Redirect admin -> dashboard page
+        window.location.href = "/admin-dashboard";
+      } else {
+        alert(data.message || "Admin login failed");
+      }
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error("Admin login failed:", err);
     }
   };
 
@@ -37,11 +46,13 @@ export default function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl p-8"
+        className="relative z-10 w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl px-8 py-4 "
       >
-        <h2 className="text-3xl font-extrabold text-center text-blue-600">Login</h2>
+        <h2 className="text-3xl font-extrabold text-center text-blue-600">
+          Admin Login
+        </h2>
         <p className="text-center text-gray-600 mt-2">
-          Welcome back! Please sign in to continue.
+          Sign in with your admin credentials.
         </p>
 
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
@@ -53,7 +64,7 @@ export default function Login() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="you@example.com"
+              placeholder="admin@example.com"
               required
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -73,16 +84,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Forgot password */}
-          <div className="flex justify-end">
-            <a
-              href="/forgot-password"
-              className="text-sm text-blue-600 hover:underline font-semibold"
-            >
-              Forgot Password?
-            </a>
-          </div>
-
           {/* Submit */}
           <button
             type="submit"
@@ -92,11 +93,24 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
-          Don’t have an account?{" "}
-          <a href="/signup" className="text-blue-600 font-semibold hover:underline">
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Don’t have an admin account?{" "}
+          <Link
+            to="/admin/signup"
+            className="text-blue-600 font-semibold hover:underline"
+          >
             Sign up
-          </a>
+          </Link>
+        </p>
+
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Not an admin?{" "}
+          <Link
+            to="/student/login"
+            className="text-blue-600 font-semibold hover:underline"
+          >
+            Student Login
+          </Link>
         </p>
       </motion.div>
     </section>

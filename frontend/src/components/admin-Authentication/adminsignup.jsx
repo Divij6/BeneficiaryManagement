@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function Signup() {
+export default function Signupadmin() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
-    address: { line1: "", line2: "" },
+    address: { city: "", state: "" },
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     // Handle nested address separately
-    if (name === "line1" || name === "line2") {
+    if (name === "city" || name === "state") {
       setFormData((prev) => ({
         ...prev,
         address: { ...prev.address, [name]: value },
@@ -27,7 +27,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch("http://localhost:5000/api/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -36,6 +36,14 @@ export default function Signup() {
       const data = await res.json();
       console.log("Signup response:", data);
       // TODO: handle success / error UI feedback
+
+      if (res.ok) {
+        
+        localStorage.setItem("user", JSON.stringify(data));
+        alert("Login successful!");
+      } else {
+        alert(data.message || "Login failed");
+      }
     } catch (err) {
       console.error("Signup failed:", err);
     }
@@ -119,8 +127,8 @@ export default function Signup() {
             <label className="block text-sm font-medium">Address Line 1</label>
             <input
               type="text"
-              name="line1"
-              value={formData.address.line1}
+              name="city"
+              value={formData.address.city}
               onChange={handleChange}
               placeholder="Street, Area"
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -131,8 +139,8 @@ export default function Signup() {
             <label className="block text-sm font-medium">Address Line 2</label>
             <input
               type="text"
-              name="line2"
-              value={formData.address.line2}
+              name="state"
+              value={formData.address.state}
               onChange={handleChange}
               placeholder="City, State"
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -149,7 +157,10 @@ export default function Signup() {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 font-semibold hover:underline">
+          <a
+            href="/admin/login"
+            className="text-blue-600 font-semibold hover:underline"
+          >
             Login
           </a>
         </p>
