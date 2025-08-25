@@ -1,82 +1,76 @@
 import React, { useState, useEffect } from "react";
 
 const EventsPage = () => {
-//   const events = [
-//     {
-//       name: "Science Fair",
-//       date: "2025-09-01",
-//       description: "Lorem ipsum dolor sit amet...",
-//       category: "Science",
-//     },
-//     {
-//       name: "Tech Summit",
-//       date: "2025-09-05",
-//       description: "Consectetur adipiscing elit...",
-//       category: "Technology",
-//     },
-//     {
-//       name: "Engineering Expo",
-//       date: "2025-09-10",
-//       description: "Sed do eiusmod tempor...",
-//       category: "Engineering",
-//     },
-//     {
-//       name: "Math Olympiad",
-//       date: "2025-09-15",
-//       description: "Ut enim ad minim veniam...",
-//       category: "Mathematics",
-//     },
-//     {
-//       name: "Robotics Workshop",
-//       date: "2025-09-20",
-//       description: "Quis nostrud exercitation...",
-//       category: "Technology",
-//     },
-//     {
-//       name: "Astronomy Night",
-//       date: "2025-09-25",
-//       description: "Duis aute irure dolor...",
-//       category: "Science",
-//     },
-//     {
-//       name: "Bridge Building Contest",
-//       date: "2025-09-28",
-//       description: "In reprehenderit in...",
-//       category: "Engineering",
-//     },
-//     {
-//       name: "Data Science Seminar",
-//       date: "2025-10-01",
-//       description: "Excepteur sint occaecat...",
-//       category: "Mathematics",
-//     },
-//     {
-//       name: "AI Hackathon",
-//       date: "2025-10-05",
-//       description: "Cupidatat non proident...",
-//       category: "Technology",
-//     },
-//     {
-//       name: "Chemistry Lab Day",
-//       date: "2025-10-10",
-//       description: "Sunt in culpa qui officia...",
-//       category: "Science",
-//     },
-//   ];
+  //   const events = [
+  //     {
+  //       name: "Science Fair",
+  //       date: "2025-09-01",
+  //       description: "Lorem ipsum dolor sit amet...",
+  //       category: "Science",
+  //     },
+  //     {
+  //       name: "Tech Summit",
+  //       date: "2025-09-05",
+  //       description: "Consectetur adipiscing elit...",
+  //       category: "Technology",
+  //     },
+  //     {
+  //       name: "Engineering Expo",
+  //       date: "2025-09-10",
+  //       description: "Sed do eiusmod tempor...",
+  //       category: "Engineering",
+  //     },
+  //     {
+  //       name: "Math Olympiad",
+  //       date: "2025-09-15",
+  //       description: "Ut enim ad minim veniam...",
+  //       category: "Mathematics",
+  //     },
+  //     {
+  //       name: "Robotics Workshop",
+  //       date: "2025-09-20",
+  //       description: "Quis nostrud exercitation...",
+  //       category: "Technology",
+  //     },
+  //     {
+  //       name: "Astronomy Night",
+  //       date: "2025-09-25",
+  //       description: "Duis aute irure dolor...",
+  //       category: "Science",
+  //     },
+  //     {
+  //       name: "Bridge Building Contest",
+  //       date: "2025-09-28",
+  //       description: "In reprehenderit in...",
+  //       category: "Engineering",
+  //     },
+  //     {
+  //       name: "Data Science Seminar",
+  //       date: "2025-10-01",
+  //       description: "Excepteur sint occaecat...",
+  //       category: "Mathematics",
+  //     },
+  //     {
+  //       name: "AI Hackathon",
+  //       date: "2025-10-05",
+  //       description: "Cupidatat non proident...",
+  //       category: "Technology",
+  //     },
+  //     {
+  //       name: "Chemistry Lab Day",
+  //       date: "2025-10-10",
+  //       description: "Sunt in culpa qui officia...",
+  //       category: "Science",
+  //     },
+  //   ];
+  
+  
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [registerEvent, setRegisterEvent] = useState(null); // For registration form popup
   const [search, setSearch] = useState("");
 
-  // Filtered events
-  const filteredEvents = events.filter(
-    (event) =>
-      event.name.toLowerCase().includes(search.toLowerCase()) ||
-      event.category.toLowerCase().includes(search.toLowerCase()) ||
-      event.description.toLowerCase().includes(search.toLowerCase())
-  );
-
-   useEffect(() => {
+  useEffect(() => {
     const fetchEvents = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/events");
@@ -89,6 +83,13 @@ const EventsPage = () => {
 
     fetchEvents();
   }, []);
+  // Filtered events
+  const filteredEvents = events.filter(
+    (event) =>
+      event.name.toLowerCase().includes(search.toLowerCase()) ||
+      event.category.toLowerCase().includes(search.toLowerCase()) ||
+      event.description.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="p-6">
