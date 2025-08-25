@@ -107,7 +107,7 @@ export default function Loginadmin() {
         <p className="mt-2 text-center text-sm text-gray-600">
           Not an admin?{" "}
           <Link
-            to="/student/login"
+            to="/student/auth/login"
             className="text-orange-400 font-semibold hover:underline"
           >
             Student Login
