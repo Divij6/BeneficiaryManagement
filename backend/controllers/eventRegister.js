@@ -3,20 +3,20 @@ import Event from "../models/Events.js";
 
 export const registerForEvent = async (req, res) => {
   try {
-    const { studentId, eventId } = req.body;
+    const { studentId, eventName } = req.body;
 
     const student = await studentSchema.findById(studentId);
     if (!student) {
       return res.status(404).json({ success: false, message: "Student not found" });
     }
 
-    const event = await Event.findById(eventId);
+    const event = await Event.findOne({ name: eventName });
     if (!event) {
       return res.status(404).json({ success: false, message: "Event not found" });
     }
 
     const alreadyRegistered = student.events.find(
-      (e) => e.eventId.toString() === eventId
+      (e) => e.eventId.toString() === event._id.toString()
     );
     if (alreadyRegistered) {
       return res.status(400).json({ success: false, message: "Already registered for this event" });
@@ -46,6 +46,7 @@ export const registerForEvent = async (req, res) => {
       },
       event: {
         id: event._id,
+        name: event.name,
         totalRegistrations: event.totalRegistrations,
       },
     });
@@ -53,4 +54,5 @@ export const registerForEvent = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 export default registerForEvent;
