@@ -9,22 +9,14 @@ export default function StudentSignup() {
     name: "",
     email: "",
     phone: "",
-    password: "",
-    address: { city: "", state: "" },
+    college: "",
+    year: "",
+    fieldOfStudy: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Handle nested address separately
-    if (name === "city" || name === "state") {
-      setFormData((prev) => ({
-        ...prev,
-        address: { ...prev.address, [name]: value },
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -41,7 +33,7 @@ export default function StudentSignup() {
 
       if (res.ok) {
         alert("Signup successful! Please login.");
-        navigate("/login"); // redirect to login page
+        navigate("/student/login"); // redirect to student login
       } else {
         alert(data.message || "Signup failed");
       }
@@ -58,7 +50,7 @@ export default function StudentSignup() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-lg bg-white text-gray-900 rounded-2xl shadow-2xl p-8"
+        className="relative z-10 w-full max-w-lg bg-white text-gray-900 rounded-2xl shadow-2xl px-8 py-4 my-4"
       >
         <h2 className="text-3xl font-extrabold text-center text-blue-600">
           Student Signup
@@ -109,41 +101,44 @@ export default function StudentSignup() {
             />
           </div>
 
-          {/* Password */}
+          {/* College */}
           <div>
-            <label className="block text-sm font-medium">Password</label>
+            <label className="block text-sm font-medium">College</label>
             <input
-              type="password"
-              name="password"
-              value={formData.password}
+              type="text"
+              name="college"
+              value={formData.college}
               onChange={handleChange}
-              placeholder="••••••••"
+              placeholder="Your college name"
               required
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Address */}
+          {/* Year */}
           <div>
-            <label className="block text-sm font-medium">City</label>
+            <label className="block text-sm font-medium">Year</label>
             <input
               type="text"
-              name="city"
-              value={formData.address.city}
+              name="year"
+              value={formData.year}
               onChange={handleChange}
-              placeholder="Enter your city"
+              placeholder="e.g., 1st / 2nd / 3rd / 4th"
+              required
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
+          {/* Field of Study */}
           <div>
-            <label className="block text-sm font-medium">State</label>
+            <label className="block text-sm font-medium">Field of Study</label>
             <input
               type="text"
-              name="state"
-              value={formData.address.state}
+              name="fieldOfStudy"
+              value={formData.fieldOfStudy}
               onChange={handleChange}
-              placeholder="Enter your state"
+              placeholder="e.g., Computer Science"
+              required
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -166,6 +161,15 @@ export default function StudentSignup() {
             Login
           </Link>
         </p>
+        {/* <p className="mt-2 text-center text-sm text-gray-600 flex items-center justify-center gap-1">
+          <Link
+            to="/admin/signup"
+            className="text-blue-600 font-semibold hover:underline flex items-center gap-1"
+          >
+            Sign up
+          </Link>
+          <span> as admin</span>
+        </p> */}
       </motion.div>
     </section>
   );

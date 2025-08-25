@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Signupadmin() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,6 @@ export default function Signupadmin() {
       // TODO: handle success / error UI feedback
 
       if (res.ok) {
-        
         localStorage.setItem("user", JSON.stringify(data));
         alert("Login successful!");
       } else {
@@ -157,12 +157,21 @@ export default function Signupadmin() {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a
-            href="/admin/login"
+          <Link
+            to="/admin/login"
             className="text-blue-600 font-semibold hover:underline"
           >
             Login
-          </a>
+          </Link>
+        </p>
+        <p className="mt-2 text-center text-sm text-gray-600 flex items-center justify-center gap-1">
+          <Link
+            to="/student/signup"
+            className="text-blue-600 font-semibold hover:underline flex items-center gap-1"
+          >
+            Sign up
+          </Link>
+          <span> as student</span>
         </p>
       </motion.div>
     </section>

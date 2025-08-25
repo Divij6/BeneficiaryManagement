@@ -42,7 +42,7 @@ const router = createBrowserRouter(
       <Route path="/student" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+        {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
       </Route>
 
       {/* ------------------- STUDENT APP ------------------- */}
@@ -68,8 +68,8 @@ const router = createBrowserRouter(
       {/* ------------------- ADMIN AUTH ------------------- */}
       <Route path="/admin" element={<AuthLayout />}>
         <Route path="login" element={<AdminLogin />} />
-        <Route path="signup" element={<AdminSignup />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+        {/* <Route path="signup" element={<AdminSignup />} /> */}
+        {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
       </Route>
 
       {/* ------------------- ADMIN APP ------------------- */}

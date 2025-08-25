@@ -93,7 +93,7 @@ export default function Loginadmin() {
           </button>
         </form>
 
-        <p className="mt-2 text-center text-sm text-gray-600">
+        {/* <p className="mt-2 text-center text-sm text-gray-600">
           Don’t have an admin account?{" "}
           <Link
             to="/admin/signup"
@@ -101,7 +101,7 @@ export default function Loginadmin() {
           >
             Sign up
           </Link>
-        </p>
+        </p> */}
 
         <p className="mt-2 text-center text-sm text-gray-600">
           Not an admin?{" "}

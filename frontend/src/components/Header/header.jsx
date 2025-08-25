@@ -77,7 +77,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/signup"
+            to="/student/signup"
             className="px-5 py-2 border-2 border-yellow-400 bg-white text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-300 transition"
           >
             Sign Up
