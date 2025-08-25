@@ -40,7 +40,7 @@ export default function Loginadmin() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-700 to-blue-500 text-white relative">
+    <section className="min-h-screen flex items-center justify-center  bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 text-white relative">
       <div className="absolute inset-0 bg-black/20"></div>
 
       <motion.div
@@ -49,7 +49,7 @@ export default function Loginadmin() {
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl px-8 py-4 "
       >
-        <h2 className="text-3xl font-extrabold text-center text-blue-600">
+        <h2 className="text-3xl font-extrabold text-center text-orange-400">
           Admin Login
         </h2>
         <p className="text-center text-gray-600 mt-2">
@@ -88,7 +88,7 @@ export default function Loginadmin() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
+            className="w-full bg-orange-400 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition"
           >
             Login
           </button>
@@ -98,7 +98,7 @@ export default function Loginadmin() {
           Don’t have an admin account?{" "}
           <Link
             to="/admin/signup"
-            className="text-blue-600 font-semibold hover:underline"
+            className="text-orange-400 font-semibold hover:underline"
           >
             Sign up
           </Link>
@@ -108,7 +108,7 @@ export default function Loginadmin() {
           Not an admin?{" "}
           <Link
             to="/student/login"
-            className="text-blue-600 font-semibold hover:underline"
+            className="text-orange-400 font-semibold hover:underline"
           >
             Student Login
           </Link>

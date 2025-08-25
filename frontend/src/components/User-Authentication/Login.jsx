@@ -45,7 +45,7 @@ export default function Login() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-700 to-blue-500 text-white relative">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 text-white relative">
       <div className="absolute inset-0 bg-black/20"></div>
 
       <motion.div
@@ -54,7 +54,7 @@ export default function Login() {
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl px-8 py-4 "
       >
-        <h2 className="text-3xl font-extrabold text-center text-blue-600">
+        <h2 className="text-3xl font-extrabold text-center text-orange-400">
           Student Login
         </h2>
         <p className="text-center text-gray-600 mt-2">
@@ -93,7 +93,7 @@ export default function Login() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
+            className="w-full bg-orange-400 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition"
           >
             Login
           </button>
@@ -104,7 +104,7 @@ export default function Login() {
           Don’t have an account?{" "}
           <Link
             to="/student/auth/signup"
-            className="text-blue-600 font-semibold hover:underline"
+            className="text-orange-400 font-semibold hover:underline"
           >
             Sign up
           </Link>
@@ -114,7 +114,7 @@ export default function Login() {
         <p className="mt-2 text-center text-sm text-gray-600 flex items-center justify-center gap-1">
           <Link
             to="/admin/login"
-            className="text-blue-600 font-semibold hover:underline flex items-center gap-1"
+            className="text-orange-400 font-semibold hover:underline flex items-center gap-1"
           >
             Login
           </Link>
