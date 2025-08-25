@@ -31,41 +31,21 @@ const router = createBrowserRouter(
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
         {/* <Route path="events" element={<UnverifiedEvents /> } /> */}
-        <Route path="events" element={<Events /> } />
-        <Route
-          path="dashboard"
-          element={
-              <UserDashboard />
-          }
-        />
+        <Route path="events" element={<Events />} />
+        <Route path="dashboard" element={<UserDashboard />} />
       </Route>
 
-      {/* ------------------- STUDENT AUTH ------------------- */}
-      <Route path="/student" element={<AuthLayout />}>
+      {/* STUDENT AUTH ROUTES */}
+      <Route path="/student/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="events" element={<Events />} />
-        {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
       </Route>
 
-      {/* ------------------- STUDENT APP ------------------- */}
+      {/* STUDENT APP ROUTES */}
       <Route path="/student" element={<AppLayout />}>
-        <Route
-          path="home"
-          element={
-           // <ProtectedRoute role="student">
-              <Home />
-           // </ProtectedRoute>
-          }
-        />
-        <Route
-          path="dashboard"
-          element={
-            //<ProtectedRoute role="student">
-              <UserDashboard />
-            
-          }
-        />
+        <Route path="home" element={<Home />} />
+        <Route path="events" element={<Events />} />
+        <Route path="dashboard" element={<UserDashboard />} />
       </Route>
 
       {/* ------------------- ADMIN AUTH ------------------- */}
@@ -77,18 +57,12 @@ const router = createBrowserRouter(
 
       {/* ------------------- ADMIN APP ------------------- */}
       <Route path="/admin" element={<AppLayout />}>
-        <Route
-          path="home"
-          element={
-              <AdminPanel />
-            
-          }
-        />
+        <Route path="home" element={<AdminPanel />} />
         <Route
           path="dashboard"
           element={
             // <ProtectedRoute role="admin">
-              <Dashboard />
+            <Dashboard />
             // </ProtectedRoute>
           }
         />

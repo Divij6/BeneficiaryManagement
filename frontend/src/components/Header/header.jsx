@@ -70,14 +70,14 @@ const Navbar = () => {
         {/* Login Button */}
         <div className="hidden md:flex items-center gap-x-4">
           <Link
-            to="/student/login"
+            to="/student/auth/login"
             className="px-5 py-2 border-2 border-yellow-400  bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
           >
             Login
           </Link>
 
           <Link
-            to="/student/signup"
+            to="/student/auth/signup"
             className="px-5 py-2 border-2 border-yellow-400 bg-white text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-300 transition"
           >
             Sign Up

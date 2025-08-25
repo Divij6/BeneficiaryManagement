@@ -2,21 +2,23 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/Footer";
-import { useLocation } from "react-router-dom";
+import StudentHeader from "./components/Header/StudentHeader";
 
 function App() {
   const [count, setCount] = useState(0);
   const location = useLocation();
 
-  // Check if the current path starts with "/admin"
+  // Check route types
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isStudentRoute = location.pathname.startsWith("/student");
 
   return (
     <>
-      {!isAdminRoute && <Header />}
+      {!isAdminRoute && !isStudentRoute && <Header />}
+      {isStudentRoute && <StudentHeader />}
       <Outlet />
       <Footer />
     </>
