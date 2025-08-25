@@ -1,34 +1,24 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signupadmin() {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
-    phone: "",
     password: "",
-    address: { city: "", state: "" },
   });
+
+  const navigate = useNavigate(); // ✅ initialize navigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Handle nested address separately
-    if (name === "city" || name === "state") {
-      setFormData((prev) => ({
-        ...prev,
-        address: { ...prev.address, [name]: value },
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/user/register", {
+      const res = await fetch("http://localhost:5000/api/admin/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -36,13 +26,12 @@ export default function Signupadmin() {
 
       const data = await res.json();
       console.log("Signup response:", data);
-      // TODO: handle success / error UI feedback
 
       if (res.ok) {
-        localStorage.setItem("user", JSON.stringify(data));
-        alert("Login successful!");
+        alert("Signup successful! Redirecting to login...");
+        navigate("/admin/login"); // ✅ redirect after signup
       } else {
-        alert(data.message || "Login failed");
+        alert(data.message || "Signup failed");
       }
     } catch (err) {
       console.error("Signup failed:", err);
@@ -60,27 +49,13 @@ export default function Signupadmin() {
         className="relative z-10 w-full max-w-lg bg-white text-gray-900 rounded-2xl shadow-2xl p-8"
       >
         <h2 className="text-3xl font-extrabold text-center text-blue-600">
-          Create Account
+          Admin Sign Up
         </h2>
         <p className="text-center text-gray-600 mt-2">
-          Fill in the details to register.
+          Create your admin account.
         </p>
 
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
-          {/* Name */}
-          <div>
-            <label className="block text-sm font-medium">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="John Doe"
-              required
-              className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
           {/* Email */}
           <div>
             <label className="block text-sm font-medium">Email</label>
@@ -95,19 +70,6 @@ export default function Signupadmin() {
             />
           </div>
 
-          {/* Phone */}
-          <div>
-            <label className="block text-sm font-medium">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="9876543210"
-              className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
           {/* Password */}
           <div>
             <label className="block text-sm font-medium">Password</label>
@@ -118,31 +80,6 @@ export default function Signupadmin() {
               onChange={handleChange}
               placeholder="••••••••"
               required
-              className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Address */}
-          <div>
-            <label className="block text-sm font-medium">Address Line 1</label>
-            <input
-              type="text"
-              name="city"
-              value={formData.address.city}
-              onChange={handleChange}
-              placeholder="Street, Area"
-              className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Address Line 2</label>
-            <input
-              type="text"
-              name="state"
-              value={formData.address.state}
-              onChange={handleChange}
-              placeholder="City, State"
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

@@ -9,6 +9,7 @@ import update_events from '../controllers/updateEvents.js';
 import delete_event from '../controllers/deleteEvent.js';
 import startedEvent from '../controllers/startedEvent.js';
 import completeEvent from '../controllers/completeEvent.js';
+import fetchAllStudents, { exportStudentsCsv } from '../controllers/fetchStudentDetail.js'
 
 
 const userRouter = express.Router()
@@ -22,6 +23,8 @@ userRouter.put('/update-events/:id', update_events);
 userRouter.delete('/delete-event/:id', delete_event);
 userRouter.put('/started-event', startedEvent);
 userRouter.put('/complete-event', completeEvent);
+userRouter.get('/students', fetchAllStudents);
+userRouter.get('/students/csv', exportStudentsCsv);
 
 export default userRouter
 

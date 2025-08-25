@@ -180,7 +180,7 @@ export default function StudentSignup() {
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
           <Link
-            to="/student/login"
+            to="/student/auth/login"
             className="text-blue-600 font-semibold hover:underline"
           >
             Login

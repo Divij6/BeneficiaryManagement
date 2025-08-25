@@ -1,73 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const EventsPage = () => {
-  //   const events = [
-  //     {
-  //       name: "Science Fair",
-  //       date: "2025-09-01",
-  //       description: "Lorem ipsum dolor sit amet...",
-  //       category: "Science",
-  //     },
-  //     {
-  //       name: "Tech Summit",
-  //       date: "2025-09-05",
-  //       description: "Consectetur adipiscing elit...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Engineering Expo",
-  //       date: "2025-09-10",
-  //       description: "Sed do eiusmod tempor...",
-  //       category: "Engineering",
-  //     },
-  //     {
-  //       name: "Math Olympiad",
-  //       date: "2025-09-15",
-  //       description: "Ut enim ad minim veniam...",
-  //       category: "Mathematics",
-  //     },
-  //     {
-  //       name: "Robotics Workshop",
-  //       date: "2025-09-20",
-  //       description: "Quis nostrud exercitation...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Astronomy Night",
-  //       date: "2025-09-25",
-  //       description: "Duis aute irure dolor...",
-  //       category: "Science",
-  //     },
-  //     {
-  //       name: "Bridge Building Contest",
-  //       date: "2025-09-28",
-  //       description: "In reprehenderit in...",
-  //       category: "Engineering",
-  //     },
-  //     {
-  //       name: "Data Science Seminar",
-  //       date: "2025-10-01",
-  //       description: "Excepteur sint occaecat...",
-  //       category: "Mathematics",
-  //     },
-  //     {
-  //       name: "AI Hackathon",
-  //       date: "2025-10-05",
-  //       description: "Cupidatat non proident...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Chemistry Lab Day",
-  //       date: "2025-10-10",
-  //       description: "Sunt in culpa qui officia...",
-  //       category: "Science",
-  //     },
-  //   ];
-  
-  
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [registerEvent, setRegisterEvent] = useState(null); // For registration form popup
+  const [registerEvent, setRegisterEvent] = useState(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -83,12 +19,22 @@ const EventsPage = () => {
 
     fetchEvents();
   }, []);
+
+  // Helper to format ISO date -> dd mm yyyy
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   // Filtered events
   const filteredEvents = events.filter(
     (event) =>
       event.name.toLowerCase().includes(search.toLowerCase()) ||
       event.category.toLowerCase().includes(search.toLowerCase()) ||
-      event.description.toLowerCase().includes(search.toLowerCase())
+      (event.info && event.info.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
@@ -117,7 +63,7 @@ const EventsPage = () => {
               <tr>
                 <th className="py-2 px-4 text-left">Event</th>
                 <th className="py-2 px-4 text-left">Date</th>
-                <th className="py-2 px-4 text-left">Category</th>
+                <th className="py-2 px-4 text-left">Info</th>
                 <th className="py-2 px-4 text-left">Action</th>
               </tr>
             </thead>
@@ -127,15 +73,18 @@ const EventsPage = () => {
                   key={i}
                   className="border-t border-gray-200 hover:bg-gray-50 transition cursor-pointer"
                   onClick={(e) => {
-                    // Prevent "Register Now" click from also triggering event details popup
                     if (!e.target.closest(".register-link")) {
                       setSelectedEvent(event);
                     }
                   }}
                 >
                   <td className="py-2 px-4">{event.name}</td>
-                  <td className="py-2 px-4 text-gray-500">{event.date}</td>
-                  <td className="py-2 px-4">{event.category}</td>
+                  <td className="py-2 px-4 text-gray-500">
+                    {formatDate(event.date)}
+                  </td>
+                  <td className="py-2 px-4 text-gray-500">
+                    {event.info}
+                  </td>
                   <td className="py-2 px-4">
                     <span
                       className="text-blue-600 hover:underline register-link cursor-pointer"
@@ -162,11 +111,13 @@ const EventsPage = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold mb-1">{selectedEvent.name}</h2>
-            <p className="text-sm text-gray-600 mb-1">{selectedEvent.date}</p>
+            <p className="text-sm text-gray-600 mb-1">
+              {formatDate(selectedEvent.date)}
+            </p>
             <p className="mt-1 text-sm font-medium text-blue-600">
               {selectedEvent.category}
             </p>
-            <p className="text-gray-700">{selectedEvent.description}</p>
+            <p className="text-gray-700">{selectedEvent.info}</p>
 
             <div className="mt-4 flex items-center justify-between">
               <button
@@ -177,7 +128,7 @@ const EventsPage = () => {
               </button>
               <span
                 className="text-blue-600 hover:underline register-link cursor-pointer ml-4"
-                onClick={() => setRegisterEvent(event)}
+                onClick={() => setRegisterEvent(selectedEvent)}
               >
                 Register Now
               </span>
@@ -186,6 +137,7 @@ const EventsPage = () => {
         </div>
       )}
 
+      {/* Registration Modal */}
       {registerEvent && (
         <div
           className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-black/10 z-50"
@@ -193,7 +145,7 @@ const EventsPage = () => {
         >
           <div
             className="bg-white rounded-xl shadow-lg p-6 max-w-md w-full animate-fadeIn"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold mb-4">
               Register for {registerEvent.name}

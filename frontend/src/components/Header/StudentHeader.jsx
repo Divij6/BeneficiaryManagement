@@ -1,7 +1,14 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const StudentHeader = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("User logged out");
+    navigate("/"); 
+  };
+
   return (
     <nav className="bg-blue-600 text-white px-6 py-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
@@ -11,7 +18,7 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-8 font-medium">
           <li>
             <NavLink
-              to="/"
+              to="home"
               className={({ isActive }) =>
                 `transition ${
                   isActive
@@ -25,7 +32,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/events"
+              to="events"
               className={({ isActive }) =>
                 `transition ${
                   isActive
@@ -39,7 +46,21 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/about"
+              to="dashboard"
+              className={({ isActive }) =>
+                `transition ${
+                  isActive
+                    ? "text-yellow-300 font-bold"
+                    : "hover:text-yellow-300"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="about"
               className={({ isActive }) =>
                 `transition ${
                   isActive
@@ -53,7 +74,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/contact"
+              to="student/contact"
               className={({ isActive }) =>
                 `transition ${
                   isActive
@@ -67,25 +88,18 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Login Button */}
+        {/* Logout Button */}
         <div className="hidden md:flex items-center gap-x-4">
-          <Link
-            to="/student/auth/login"
-            className="px-5 py-2 border-2 border-yellow-400  bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
+          <button
+            onClick={handleLogout}
+            className="px-5 py-2 border-2 border-yellow-400 bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
           >
-            Login
-          </Link>
-
-          <Link
-            to="/student/auth/signup"
-            className="px-5 py-2 border-2 border-yellow-400 bg-white text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-300 transition"
-          >
-            Sign Up
-          </Link>
+            Logout
+          </button>
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default StudentHeader;
