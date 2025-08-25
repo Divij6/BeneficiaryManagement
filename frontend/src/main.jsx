@@ -14,9 +14,13 @@ import AuthLayout from "./AuthLayout.jsx";
 import Home from "./components/Home/Home.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
-import Login from "./components/Authentication/Login.jsx";
-import Signup from "./components/Authentication/Signup.jsx";
-import ForgotPassword from "./components/Authentication/ForgotPasswords.jsx";
+import Events from "./components/EventsGeneral/Events.jsx";
+import Login from "./components/User-Authentication/Login.jsx";
+import AdminLogin from "./components/admin-Authentication/adminLogin.jsx";
+import Signup from "./components/User-Authentication/Signup.jsx";
+import AdminSignup from "./components/admin-Authentication/adminsignup.jsx";
+import ForgotPassword from "./components/User-Authentication/ForgotPasswords.jsx";
+import ProtectedRoute from "./components/protected routes/protected.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,15 +28,68 @@ const router = createBrowserRouter(
       {/* Main app routes (with Header + Footer) */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="beneficiaries" element={<UserDashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="events" element={<Events />} />
+        <Route
+          path="dashboard"
+          element={
+              <UserDashboard />
+            
+          }
+        />
       </Route>
 
-      {/* Auth routes (without Header + Footer) */}
-      <Route path="/" element={<AuthLayout />}>
+      {/* ------------------- STUDENT AUTH ------------------- */}
+      <Route path="/student" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+        {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
+      </Route>
+
+      {/* ------------------- STUDENT APP ------------------- */}
+      <Route path="/student" element={<AppLayout />}>
+        <Route
+          path="home"
+          element={
+            <ProtectedRoute role="student">
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute role="student">
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      {/* ------------------- ADMIN AUTH ------------------- */}
+      <Route path="/admin" element={<AuthLayout />}>
+        <Route path="login" element={<AdminLogin />} />
+        {/* <Route path="signup" element={<AdminSignup />} /> */}
+        {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
+      </Route>
+
+      {/* ------------------- ADMIN APP ------------------- */}
+      <Route path="/admin" element={<AppLayout />}>
+        <Route
+          path="home"
+          element={
+            <ProtectedRoute role="admin">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute role="admin">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </>
   )
