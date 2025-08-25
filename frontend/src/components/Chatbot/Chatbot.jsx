@@ -1,13 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-import {
-  X,
-  Send,
-  Maximize2,
-  Minimize2,
-  Paperclip,
-  RefreshCcw,
-} from "lucide-react";
+import { X, Send, Maximize2, Minimize2, RefreshCcw } from "lucide-react";
 
 const Chatbot = ({ isOpen, onClose }) => {
   const initialMessage = [
@@ -18,42 +10,40 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [file, setFile] = useState(null);
 
   const sendMessage = async () => {
-    if (!input.trim() && !file) return;
+    if (!input.trim()) return;
 
     // Add user message
-    const newMessage = {
-      sender: "user",
-      text: input || "",
-      file: file ? URL.createObjectURL(file) : null,
-      fileName: file ? file.name : null,
-    };
+    const newMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, newMessage]);
+    const query = input;
     setInput("");
-    setFile(null);
     setLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append("message", input);
-      if (file) formData.append("file", file);
+      const res = await fetch("https://a902bbcc71cf.ngrok-free.app/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      });
 
-      const res = await axios.post(
-        "https://your-domain.com/api/chat",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      if (!res.ok) throw new Error("Failed to fetch answer");
 
-      const botMessage = { sender: "bot", text: res.data.reply };
+      const data = await res.json();
+      const botMessage = {
+        sender: "bot",
+        text: data.answer || "⚠️ No answer received.",
+      };
+
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
+      console.error("❌ Chatbot Error:", error);
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "⚠️ Sorry, something went wrong." },
+        { sender: "bot", text: "⚠️ Sorry, could not reach the server." },
       ]);
     } finally {
       setLoading(false);
@@ -72,7 +62,7 @@ const Chatbot = ({ isOpen, onClose }) => {
         }`}
       >
         {/* Header */}
-        <div className="bg-blue-600 text-white flex justify-between items-center px-4 py-3">
+        <div className="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 text-white flex justify-between items-center px-4 py-3">
           <h2 className="font-semibold">NGO Assistant</h2>
           <div className="flex gap-3 items-center">
             <button onClick={refreshChat} title="Refresh Chat">
@@ -97,32 +87,11 @@ const Chatbot = ({ isOpen, onClose }) => {
               key={i}
               className={`p-3 rounded-lg max-w-[75%] break-words ${
                 msg.sender === "user"
-                  ? "bg-blue-600 text-white ml-auto"
+                  ? "bg-gradient-to-r from-red-600 to-orange-500 text-white ml-auto"
                   : "bg-gray-200 text-gray-800"
               }`}
             >
               {msg.text}
-              {msg.file && (
-                <div className="mt-2">
-                  {msg.file.endsWith(".jpg") ||
-                  msg.file.endsWith(".png") ||
-                  msg.file.endsWith(".jpeg") ? (
-                    <img
-                      src={msg.file}
-                      alt="attachment"
-                      className="max-h-40 rounded-lg"
-                    />
-                  ) : (
-                    <a
-                      href={msg.file}
-                      download={msg.fileName}
-                      className="underline text-sm text-yellow-600"
-                    >
-                      📎 {msg.fileName}
-                    </a>
-                  )}
-                </div>
-              )}
             </div>
           ))}
           {loading && (
@@ -134,25 +103,9 @@ const Chatbot = ({ isOpen, onClose }) => {
 
         {/* Input */}
         <div className="flex items-center border-t px-3 py-2 bg-white gap-2">
-          {/* File Input */}
-          <label className="cursor-pointer text-gray-600 hover:text-blue-600">
-            <Paperclip size={20} />
-            <input
-              type="file"
-              className="hidden"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </label>
-          {file && (
-            <span className="text-sm text-gray-700 truncate max-w-[100px]">
-              {file.name}
-            </span>
-          )}
-
-          {/* Text Input */}
           <input
             type="text"
-            className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 text-gray-900 placeholder-gray-500"
+            className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-orange-400 text-gray-900 placeholder-gray-500"
             placeholder="Type your message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -160,7 +113,8 @@ const Chatbot = ({ isOpen, onClose }) => {
           />
           <button
             onClick={sendMessage}
-            className="ml-2 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+            disabled={loading}
+            className="ml-2 bg-gradient-to-r from-red-600 to-orange-500 text-white p-2 rounded-lg hover:opacity-90 disabled:opacity-50 transition"
           >
             <Send size={18} />
           </button>
