@@ -15,6 +15,7 @@ import Home from "./components/Home/Home.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
 import Events from "./components/EventsGeneral/Events.jsx";
+import UnverifiedEvents from "./components/EventsGeneral/eventsHome.jsx";
 import Login from "./components/User-Authentication/Login.jsx";
 import AdminLogin from "./components/admin-Authentication/adminLogin.jsx";
 import Signup from "./components/User-Authentication/Signup.jsx";
@@ -28,12 +29,11 @@ const router = createBrowserRouter(
       {/* Main app routes (with Header + Footer) */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="events" element={<Events />} />
+        <Route path="events" element={<UnverifiedEvents /> } />
         <Route
           path="dashboard"
           element={
               <UserDashboard />
-            
           }
         />
       </Route>
@@ -42,6 +42,7 @@ const router = createBrowserRouter(
       <Route path="/student" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="events" element={<Events />} />
         {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
       </Route>
 
