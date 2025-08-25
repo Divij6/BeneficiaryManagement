@@ -10,3 +10,4 @@ userRouter.get("/:id", getUserById);
 userRouter.delete("/:id", deleteUser); 
 
 export default userRouter
+
