@@ -25,7 +25,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/beneficiaries"
+              to="/events"
               className={({ isActive }) =>
                 `transition ${
                   isActive
@@ -34,7 +34,7 @@ const Navbar = () => {
                 }`
               }
             >
-              Beneficiaries
+              Events
             </NavLink>
           </li>
           <li>

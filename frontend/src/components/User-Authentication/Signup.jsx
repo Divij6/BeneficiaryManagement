@@ -12,7 +12,10 @@ export default function StudentSignup() {
     college: "",
     year: "",
     fieldOfStudy: "",
+    password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +36,7 @@ export default function StudentSignup() {
 
       if (res.ok) {
         alert("Signup successful! Please login.");
-        navigate("/student/login"); // redirect to student login
+        navigate("/student/login");
       } else {
         alert(data.message || "Signup failed");
       }
@@ -143,6 +146,28 @@ export default function StudentSignup() {
             />
           </div>
 
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium">Password</label>
+            <div className="relative mt-1">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter password"
+                required
+                className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+              />
+              <span
+                className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? "visibility_off" : "visibility"}
+              </span>
+            </div>
+          </div>
+
           {/* Submit */}
           <button
             type="submit"
@@ -161,15 +186,6 @@ export default function StudentSignup() {
             Login
           </Link>
         </p>
-        {/* <p className="mt-2 text-center text-sm text-gray-600 flex items-center justify-center gap-1">
-          <Link
-            to="/admin/signup"
-            className="text-blue-600 font-semibold hover:underline flex items-center gap-1"
-          >
-            Sign up
-          </Link>
-          <span> as admin</span>
-        </p> */}
       </motion.div>
     </section>
   );

@@ -14,6 +14,7 @@ import AuthLayout from "./AuthLayout.jsx";
 import Home from "./components/Home/Home.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
+import Events from "./components/EventsGeneral/Events.jsx";
 import Login from "./components/User-Authentication/Login.jsx";
 import AdminLogin from "./components/admin-Authentication/adminLogin.jsx";
 import Signup from "./components/User-Authentication/Signup.jsx";
@@ -27,15 +28,14 @@ const router = createBrowserRouter(
       {/* Main app routes (with Header + Footer) */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        {/* <Route
-          path="beneficiaries"
+        <Route path="events" element={<Events />} />
+        <Route
+          path="dashboard"
           element={
-            // <ProtectedRoute>
-            // </ProtectedRoute>
               <UserDashboard />
+            
           }
         />
-        <Route path="dashboard" element={<Dashboard />} /> */}
       </Route>
 
       {/* ------------------- STUDENT AUTH ------------------- */}
