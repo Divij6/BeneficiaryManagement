@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Loginadmin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate(); // ✅ initialize navigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +30,7 @@ export default function Loginadmin() {
       if (res.ok) {
         localStorage.setItem("admin", JSON.stringify(data));
         alert("Admin login successful!");
-        // Redirect admin -> dashboard page
-        window.location.href = "/admin-dashboard";
+        navigate("/admin/home"); // ✅ redirect to admin/home
       } else {
         alert(data.message || "Admin login failed");
       }
@@ -93,7 +94,7 @@ export default function Loginadmin() {
           </button>
         </form>
 
-        {/* <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-600">
           Don’t have an admin account?{" "}
           <Link
             to="/admin/signup"
@@ -101,7 +102,7 @@ export default function Loginadmin() {
           >
             Sign up
           </Link>
-        </p> */}
+        </p>
 
         <p className="mt-2 text-center text-sm text-gray-600">
           Not an admin?{" "}

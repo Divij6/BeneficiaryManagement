@@ -10,7 +10,7 @@ import {
 
 import AppLayout from "./AppLayout.jsx";
 import AuthLayout from "./AuthLayout.jsx";
-
+// import adminMain from "./components/AdminPanel/AdminMain.jsx"
 import Home from "./components/Home/Home.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
@@ -22,6 +22,7 @@ import Signup from "./components/User-Authentication/Signup.jsx";
 import AdminSignup from "./components/admin-Authentication/adminsignup.jsx";
 import ForgotPassword from "./components/User-Authentication/ForgotPasswords.jsx";
 import ProtectedRoute from "./components/protected routes/protected.jsx";
+import AdminPanel from "./components/AdminPanel/AdminMain.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,17 +53,17 @@ const router = createBrowserRouter(
         <Route
           path="home"
           element={
-            <ProtectedRoute role="student">
+           // <ProtectedRoute role="student">
               <Home />
-            </ProtectedRoute>
+           // </ProtectedRoute>
           }
         />
         <Route
           path="dashboard"
           element={
-            <ProtectedRoute role="student">
+            //<ProtectedRoute role="student">
               <UserDashboard />
-            </ProtectedRoute>
+            
           }
         />
       </Route>
@@ -70,7 +71,7 @@ const router = createBrowserRouter(
       {/* ------------------- ADMIN AUTH ------------------- */}
       <Route path="/admin" element={<AuthLayout />}>
         <Route path="login" element={<AdminLogin />} />
-        {/* <Route path="signup" element={<AdminSignup />} /> */}
+        <Route path="signup" element={<AdminSignup />} />
         {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
       </Route>
 
@@ -79,17 +80,16 @@ const router = createBrowserRouter(
         <Route
           path="home"
           element={
-            <ProtectedRoute role="admin">
-              <Dashboard />
-            </ProtectedRoute>
+              <AdminPanel />
+            
           }
         />
         <Route
           path="dashboard"
           element={
-            <ProtectedRoute role="admin">
+            // <ProtectedRoute role="admin">
               <Dashboard />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
       </Route>
