@@ -2,72 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const EventsPage = () => {
-
-  //   const events = [
-  //     {
-  //       name: "Science Fair",
-  //       date: "2025-09-01",
-  //       description: "Lorem ipsum dolor sit amet...",
-  //       category: "Science",
-  //     },
-  //     {
-  //       name: "Tech Summit",
-  //       date: "2025-09-05",
-  //       description: "Consectetur adipiscing elit...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Engineering Expo",
-  //       date: "2025-09-10",
-  //       description: "Sed do eiusmod tempor...",
-  //       category: "Engineering",
-  //     },
-  //     {
-  //       name: "Math Olympiad",
-  //       date: "2025-09-15",
-  //       description: "Ut enim ad minim veniam...",
-  //       category: "Mathematics",
-  //     },
-  //     {
-  //       name: "Robotics Workshop",
-  //       date: "2025-09-20",
-  //       description: "Quis nostrud exercitation...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Astronomy Night",
-  //       date: "2025-09-25",
-  //       description: "Duis aute irure dolor...",
-  //       category: "Science",
-  //     },
-  //     {
-  //       name: "Bridge Building Contest",
-  //       date: "2025-09-28",
-  //       description: "In reprehenderit in...",
-  //       category: "Engineering",
-  //     },
-  //     {
-  //       name: "Data Science Seminar",
-  //       date: "2025-10-01",
-  //       description: "Excepteur sint occaecat...",
-  //       category: "Mathematics",
-  //     },
-  //     {
-  //       name: "AI Hackathon",
-  //       date: "2025-10-05",
-  //       description: "Cupidatat non proident...",
-  //       category: "Technology",
-  //     },
-  //     {
-  //       name: "Chemistry Lab Day",
-  //       date: "2025-10-10",
-  //       description: "Sunt in culpa qui officia...",
-  //       category: "Science",
-  //     },
-  //   ];
-
-  // Filtered events
-
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [registerEvent, setRegisterEvent] = useState(null); // For registration form popup
@@ -113,14 +47,14 @@ const EventsPage = () => {
       </div>
 
       {/* Events Table */}
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 transition duration-300">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-blue-50 text-blue-700">
+            <thead className="bg-blue-50/70 text-blue-700">
               <tr>
                 <th className="py-2 px-4 text-left">Event</th>
                 <th className="py-2 px-4 text-left">Date</th>
-                <th className="py-2 px-4 text-left">Category</th>
+                <th className="py-2 px-4 text-left">Info</th>
                 <th className="py-2 px-4 text-left">Action</th>
               </tr>
             </thead>
@@ -128,21 +62,22 @@ const EventsPage = () => {
               {filteredEvents.map((event, i) => (
                 <tr
                   key={i}
-                  className="border-t border-gray-200 hover:bg-gray-50 transition cursor-pointer"
+                  className="border-t border-gray-200/60 hover:bg-gray-50/60 transition cursor-pointer"
                   onClick={(e) => {
-                    // Prevent "Register Now" click from also triggering event details popup
                     if (!e.target.closest(".register-link")) {
                       setSelectedEvent(event);
                     }
                   }}
                 >
                   <td className="py-2 px-4">{event.name}</td>
-                  <td className="py-2 px-4 text-gray-500">{event.date}</td>
-                  <td className="py-2 px-4">{event.category}</td>
+                  <td className="py-2 px-4 text-gray-500">
+                    {formatDate(event.date)}
+                  </td>
+                  <td className="py-2 px-4 text-gray-500">{event.info}</td>
                   <td className="py-2 px-4">
                     <Link
-                      to="/student/login"
                       className="text-blue-600 hover:underline register-link cursor-pointer"
+                      to='student/auth/login'
                     >
                       Register Now
                     </Link>

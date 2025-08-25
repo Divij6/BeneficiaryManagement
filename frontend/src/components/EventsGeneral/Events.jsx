@@ -20,7 +20,6 @@ const EventsPage = () => {
     fetchEvents();
   }, []);
 
-  // Helper to format ISO date -> dd mm yyyy
   const formatDate = (isoString) => {
     const date = new Date(isoString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -29,7 +28,6 @@ const EventsPage = () => {
     return `${day}-${month}-${year}`;
   };
 
-  // Filtered events
   const filteredEvents = events.filter(
     (event) =>
       event.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -38,7 +36,7 @@ const EventsPage = () => {
   );
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-24 min-h-screen bg-gradient-to-br from-orange-100 to-orange-300">
       {/* Header with Search */}
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2 border-b border-gray-400 pb-3">
@@ -56,10 +54,10 @@ const EventsPage = () => {
       </div>
 
       {/* Events Table */}
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 transition duration-300">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-blue-50 text-blue-700">
+            <thead className="bg-blue-50/70 text-blue-700">
               <tr>
                 <th className="py-2 px-4 text-left">Event</th>
                 <th className="py-2 px-4 text-left">Date</th>
@@ -71,7 +69,7 @@ const EventsPage = () => {
               {filteredEvents.map((event, i) => (
                 <tr
                   key={i}
-                  className="border-t border-gray-200 hover:bg-gray-50 transition cursor-pointer"
+                  className="border-t border-gray-200/60 hover:bg-gray-50/60 transition cursor-pointer"
                   onClick={(e) => {
                     if (!e.target.closest(".register-link")) {
                       setSelectedEvent(event);
@@ -82,9 +80,7 @@ const EventsPage = () => {
                   <td className="py-2 px-4 text-gray-500">
                     {formatDate(event.date)}
                   </td>
-                  <td className="py-2 px-4 text-gray-500">
-                    {event.info}
-                  </td>
+                  <td className="py-2 px-4 text-gray-500">{event.info}</td>
                   <td className="py-2 px-4">
                     <span
                       className="text-blue-600 hover:underline register-link cursor-pointer"

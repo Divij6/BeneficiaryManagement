@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="bg-transparent text-white px-6 py-4 fixed top-0 left-0 w-full z-50">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/30 backdrop-blur-md border-b border-white/20 text-white px-6 py-4">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-extrabold tracking-wide">Katalyst</h1>
 
@@ -67,11 +67,11 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Login Button */}
+        {/* Login / Signup */}
         <div className="hidden md:flex items-center gap-x-4">
           <Link
             to="/student/auth/login"
-            className="px-5 py-2 border-2 border-yellow-400  bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
+            className="px-5 py-2 border-2 border-yellow-400 bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
           >
             Login
           </Link>

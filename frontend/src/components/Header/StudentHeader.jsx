@@ -10,12 +10,15 @@ const StudentHeader = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold tracking-wide">NGO Portal</h1>
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-white/30 shadow-md">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        {/* Logo / Title */}
+        <h1 className="text-2xl font-extrabold tracking-wide text-gray-900">
+          NGO Portal
+        </h1>
 
         {/* Navigation Links */}
-        <ul className="hidden md:flex gap-8 font-medium">
+        <ul className="hidden md:flex gap-8 font-medium text-gray-800">
           <li>
             <NavLink
               to="home"
@@ -23,7 +26,7 @@ const StudentHeader = () => {
                 `transition ${
                   isActive
                     ? "text-yellow-300 font-bold"
-                    : "hover:text-yellow-300"
+                    : "hover:text-yellow-500"
                 }`
               }
             >
@@ -37,7 +40,7 @@ const StudentHeader = () => {
                 `transition ${
                   isActive
                     ? "text-yellow-300 font-bold"
-                    : "hover:text-yellow-300"
+                    : "hover:text-yellow-500"
                 }`
               }
             >
@@ -51,7 +54,7 @@ const StudentHeader = () => {
                 `transition ${
                   isActive
                     ? "text-yellow-300 font-bold"
-                    : "hover:text-yellow-300"
+                    : "hover:text-yellow-500"
                 }`
               }
             >
@@ -65,7 +68,7 @@ const StudentHeader = () => {
                 `transition ${
                   isActive
                     ? "text-yellow-300 font-bold"
-                    : "hover:text-yellow-300"
+                    : "hover:text-yellow-500"
                 }`
               }
             >
@@ -79,7 +82,7 @@ const StudentHeader = () => {
                 `transition ${
                   isActive
                     ? "text-yellow-300 font-bold"
-                    : "hover:text-yellow-300"
+                    : "hover:text-yellow-500"
                 }`
               }
             >
@@ -92,7 +95,7 @@ const StudentHeader = () => {
         <div className="hidden md:flex items-center gap-x-4">
           <button
             onClick={handleLogout}
-            className="px-5 py-2 border-2 border-yellow-400 bg-yellow-300 text-gray-900 rounded-2xl font-semibold shadow hover:bg-yellow-400 transition"
+            className="px-5 py-2 border-2 border-yellow-500 bg-yellow-100 text-yellow-700 rounded-2xl font-semibold shadow hover:bg-yellow-200 transition"
           >
             Logout
           </button>
