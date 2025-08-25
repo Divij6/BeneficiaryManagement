@@ -22,25 +22,25 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
-            Empowering Lives, <br />
+            Empowering Women to <br />
             <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-              One Beneficiary at a Time
+              Dream Bigger, Aim Higher
             </span>
           </h1>
           <p className="mt-6 text-lg text-gray-100">
-            Welcome to our Beneficiary Management Portal — designed for NGOs to
-            efficiently manage, support, and uplift communities with care,
-            transparency, and impact.
+            Katalyst India is an award-winning NGO that prepares young women for
+            leadership roles, creating a wider talent pool for India Inc and
+            bridging the gender divide.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Link
               to="/register"
               className="px-6 py-3 rounded-2xl bg-white text-red-600 font-semibold shadow-lg hover:bg-gray-100 transition"
             >
-              Register Beneficiary
+              Register
             </Link>
             <a
-              href="#learnmore"
+              href="#impact"
               className="px-6 py-3 rounded-2xl border border-white font-semibold hover:bg-white hover:text-orange-600 transition"
             >
               Learn More
@@ -61,6 +61,51 @@ export default function Home() {
             className="rounded-2xl shadow-2xl w-[90%] lg:w-[80%] border-4 border-white"
           />
         </motion.div>
+      </div>
+
+      {/* Mission & Impact Section */}
+      <div
+        id="impact"
+        className="relative z-10 bg-white text-gray-900 py-16 px-6 lg:px-20 rounded-t-3xl shadow-lg"
+      >
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold text-red-600">
+            Our Mission
+          </h2>
+          <p className="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+            Katalyst stands for the economic empowerment of women. We prepare
+            young women for leadership roles and create capable, valuable talent
+            who are eager to shape their own future as well as the world’s.
+          </p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md">
+            <h3 className="text-4xl font-extrabold text-red-600">1777+</h3>
+            <p className="mt-2 text-gray-600">Women directly impacted</p>
+          </div>
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md">
+            <h3 className="text-4xl font-extrabold text-red-600">908</h3>
+            <p className="mt-2 text-gray-600">Currently in the program</p>
+          </div>
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md">
+            <h3 className="text-4xl font-extrabold text-red-600">55%</h3>
+            <p className="mt-2 text-gray-600">At managerial level</p>
+          </div>
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md">
+            <h3 className="text-4xl font-extrabold text-red-600">12%</h3>
+            <p className="mt-2 text-gray-600">At senior leadership level</p>
+          </div>
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md">
+            <h3 className="text-4xl font-extrabold text-red-600">43%</h3>
+            <p className="mt-2 text-gray-600">Higher median salary</p>
+          </div>
+          <div className="p-6 bg-red-50 rounded-2xl shadow-md sm:col-span-2 lg:col-span-2">
+            <h3 className="text-4xl font-extrabold text-red-600">69%</h3>
+            <p className="mt-2 text-gray-600">Outperform peers at workplace</p>
+          </div>
+        </div>
       </div>
 
       {/* ✅ Chatbot Component */}

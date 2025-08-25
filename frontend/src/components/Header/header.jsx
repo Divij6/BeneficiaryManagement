@@ -3,9 +3,9 @@ import { NavLink, Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 shadow-lg">
+    <nav className="bg-transparent text-white px-6 py-4 fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold tracking-wide">NGO Portal</h1>
+        <h1 className="text-2xl font-extrabold tracking-wide">Katalyst</h1>
 
         {/* Navigation Links */}
         <ul className="hidden md:flex gap-8 font-medium">
