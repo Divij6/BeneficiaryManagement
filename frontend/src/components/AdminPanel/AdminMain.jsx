@@ -38,10 +38,50 @@ const AdminPanel = () => {
   const fetchEvents = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/events");
-      setEvents(res.data);
+      // If API returns data, use it. Otherwise, fall back to dummy data.
+      if (res.data && res.data.length > 0) {
+        setEvents(res.data);
+      } else {
+        setDummyData();
+      }
     } catch (error) {
       console.error("Error fetching events", error);
+      // On error, use dummy data
+      setDummyData();
     }
+  };
+
+  const setDummyData = () => {
+    setEvents([
+      {
+        id: "E001",
+        name: "Tech Talk: AI Basics",
+        date: "2025-08-30",
+        registered: 12,
+        desc: "An introductory talk about Artificial Intelligence for beginners.",
+      },
+      {
+        id: "E002",
+        name: "Hackathon 2025",
+        date: "2025-09-05",
+        registered: 18,
+        desc: "A 24-hour hackathon where students build innovative projects.",
+      },
+      {
+        id: "E003",
+        name: "Startup Pitch Night",
+        date: "2025-09-12",
+        registered: 8,
+        desc: "Students pitch their startup ideas to a panel of judges.",
+      },
+      {
+        id: "E004",
+        name: "Design Workshop",
+        date: "2025-09-20",
+        registered: 5,
+        desc: "Hands-on workshop to learn UI/UX design fundamentals.",
+      },
+    ]);
   };
 
   const handleDelete = async (id) => {
@@ -99,7 +139,7 @@ const AdminPanel = () => {
   }));
 
   const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6"];
-
+  
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       {/* Main Content */}

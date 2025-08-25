@@ -13,9 +13,10 @@ const fadeInUp = {
 
 const UserDashboard = () => {
   const user = {
-    name: "Username",
-    email: "useremail@example.com",
+    name: "Raghav Kumar Jha",
+    email: "raghavjha619@gmail.com",
     phone: "+91 9876543210",
+    id: "user-123",
     accountNumber: "1234 5678 9012",
     ifsc: "HDFC0001234",
     balance: "₹1,25,000",
@@ -48,7 +49,7 @@ const UserDashboard = () => {
       </motion.div>
 
       {/* Programs + Account Details */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-6">
+      <div className="grid grid-cols-1  gap-6 w-full mb-6">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -58,14 +59,7 @@ const UserDashboard = () => {
           <ProgramsTable programs={user.programs} />
         </motion.div>
 
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.6 }}
-        >
-          <AccountDetails user={user} />
-        </motion.div>
+        
       </div>
 
       {/* Recent Activities */}

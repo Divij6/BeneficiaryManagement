@@ -10,6 +10,7 @@ const ProfileCard = ({ user }) => {
         <p className="text-xl font-semibold text-gray-900">{user.name}</p>
         <p className="text-gray-600">{user.email}</p>
         <p className="text-gray-600">{user.phone}</p>
+        <p className="text-gray-600">{user.id}</p>
       </div>
     </div>
   );
