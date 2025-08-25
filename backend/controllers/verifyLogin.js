@@ -1,4 +1,4 @@
-import userModel from "../models/userModel.js";
+import studentSchema from "../models/Student.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -6,39 +6,43 @@ export const verifyLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    
-    const user = await userModel.findOne({ email });
-    if (!user) {
+    const student = await studentSchema.findOne({ email });
+    if (!student) {
       return res.status(200).send({
-        message: "User not found",
+        message: "Student not found",
         success: false,
       });
     }
 
-    
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, student.password);
     if (!isMatch) {
       return res.status(200).send({
-        message: "Invalid Credentials",
+        message: "Invalid credentials",
         success: false,
       });
     }
 
-    
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
     res.status(200).send({
-      message: "Login Successful",
+      message: "Login successful",
       success: true,
       token,
-      data: user,
+      student: {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        phone: student.phone,
+        college: student.college,
+        yearOfStudy: student.yearOfStudy,
+        fieldOfStudy: student.fieldOfStudy,
+      },
     });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
-      message: "Error in Login",
+      message: "Error in login",
       success: false,
       error,
     });
