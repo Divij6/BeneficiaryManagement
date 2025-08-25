@@ -1,8 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { MessageCircle } from "lucide-react"; // chatbot icon
+import Chatbot from "../Chatbot/Chatbot";
+import { useState } from "react";
 
 export default function Home() {
+   const [chatOpen, setChatOpen] = useState(false);
   return (
     <section className="relative bg-blue-600 text-white">
       <div className="absolute inset-0 bg-black/20"></div>
@@ -24,7 +28,8 @@ export default function Home() {
             transparency, and impact.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link to='/register'
+            <Link
+              to="/register"
               className="px-6 py-3 rounded-2xl bg-yellow-400 text-gray-900 font-semibold shadow-lg hover:bg-yellow-300 transition"
             >
               Register Beneficiary
@@ -51,6 +56,25 @@ export default function Home() {
           />
         </motion.div>
       </div>
+      {/* Floating Chatbot Button */}
+      <button
+        className="fixed bottom-6 right-6 z-50 bg-yellow-400 text-blue-900 p-4 rounded-full shadow-xl hover:bg-yellow-500 transition flex items-center justify-center"
+        onClick={() => alert("🤖 Chatbot opened! (Integrate AI later)")}
+      >
+        <MessageCircle size={28} />
+      </button>
+      {/* ✅ Chatbot */}
+      <Chatbot isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+
+      {/* ✅ Floating Button */}
+      {!chatOpen && (
+        <button
+          onClick={() => setChatOpen(true)}
+          className="fixed bottom-6 right-6 z-50 bg-yellow-400 text-blue-900 p-4 rounded-full shadow-xl hover:bg-yellow-500 transition flex items-center justify-center"
+        >
+          <MessageCircle size={28} />
+        </button>
+      )}
     </section>
   );
 }

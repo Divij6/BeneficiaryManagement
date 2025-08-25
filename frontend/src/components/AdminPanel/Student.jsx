@@ -1,59 +1,110 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const StudentPage = () => {
   const { id } = useParams();
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const student = {
-    id: "ST001",
-    name: "Rahul Sharma",
-    email: "rahul@example.com",
-    phone: "9876543210",
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/students/${id}`
+        );
+        setStudent(response.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch student data");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    events: [
-      { name: "Katathon", status: "Completed" },
-      { name: "Alkemist Program", status: "Ongoing" },
-      { name: "Akcelerator Program", status: "Not Completed" },
-    ],
-  };
+    fetchStudent();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+        <p className="text-xl animate-pulse">Loading student data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-white text-black">
+        <p className="text-red-300 font-semibold">{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 bg-gray-900 text-white min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">
-        Student Details - {student.id}
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 text-white p-8">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <h1 className="text-4xl font-bold mb-8 text-center">
+          Student Profile - {student.id}
+        </h1>
 
-      {/* Student Info */}
-      <div className="bg-gray-800 p-4 rounded-lg mb-6">
-        <p>
-          <b>Name:</b> {student.name}
-        </p>
-        <p>
-          <b>Email:</b> {student.email}
-        </p>
-        <p>
-          <b>Phone:</b> {student.phone}
-        </p>
+        {/* Student Info Card */}
+        <div className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg mb-10">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-200">
+            Personal Information
+          </h2>
+          <div className="space-y-2 text-lg">
+            <p>
+              <span className="font-semibold text-blue-100">Name:</span>{" "}
+              {student.name}
+            </p>
+            <p>
+              <span className="font-semibold text-blue-100">Email:</span>{" "}
+              {student.email}
+            </p>
+            <p>
+              <span className="font-semibold text-blue-100">Phone:</span>{" "}
+              {student.phone}
+            </p>
+          </div>
+        </div>
+
+        {/* Events Attended */}
+        <div className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-200">
+            Events Attended
+          </h2>
+          <table className="w-full border-collapse overflow-hidden rounded-lg shadow-md">
+            <thead>
+              <tr className="bg-blue-500/50 text-white">
+                <th className="px-4 py-3 text-left">Event</th>
+                <th className="px-4 py-3 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {student.events.map((event, idx) => (
+                <tr
+                  key={idx}
+                  className="hover:bg-white/20 transition duration-200"
+                >
+                  <td className="px-4 py-3">{event.name}</td>
+                  <td
+                    className={`px-4 py-3 font-semibold ${
+                      event.status === "Completed"
+                        ? "text-green-300"
+                        : "text-yellow-300"
+                    }`}
+                  >
+                    {event.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      {/* Events Attended */}
-      <h2 className="text-2xl font-semibold mb-3">Events Attended</h2>
-      <table className="w-full border-collapse border border-gray-600">
-        <thead>
-          <tr className="bg-gray-700">
-            <th className="border border-gray-600 p-3">Event</th>
-            <th className="border border-gray-600 p-3">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {student.events.map((event, idx) => (
-            <tr key={idx} className="text-center">
-              <td className="border border-gray-600 p-3">{event.name}</td>
-              <td className="border border-gray-600 p-3">{event.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };

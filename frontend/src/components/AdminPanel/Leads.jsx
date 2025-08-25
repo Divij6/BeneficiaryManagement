@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import axios from "axios";
 
 const EventLeads = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
 
-  const students = [
-    { id: "ST001", name: "Rahul Sharma", status: "Attended" },
-    { id: "ST002", name: "Priya Verma", status: "Not Attended" },
-    { id: "ST003", name: "Aman Gupta", status: "Attended" },
-  ];
+  // ✅ Fetch students from backend
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/events/${id}/students`
+        );
+        setStudents(res.data);
+      } catch (err) {
+        console.error("Error fetching students:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, [id]);
 
   const stats = {
     total: students.length,
@@ -38,7 +53,7 @@ const EventLeads = () => {
     return matchesSearch && matchesFilter;
   });
 
-  // Export CSV
+  // ✅ Export CSV
   const exportCSV = () => {
     const csvContent =
       "data:text/csv;charset=utf-8," +
@@ -53,39 +68,41 @@ const EventLeads = () => {
     link.click();
   };
 
+  if (loading) {
+    return <div className="text-gray-700 p-6">Loading...</div>;
+  }
+
   return (
-    <div className="p-6 bg-gray-950 text-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-100 min-h-screen">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
-        <h1 className="text-3xl font-bold text-indigo-400">
-          📊 Event {id} - Leads
-        </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Event {id} - Leads</h1>
         <button
           onClick={() => navigate(-1)}
-          className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-lg transition"
+          className="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
         >
           ⬅ Back
         </button>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
-        <div className="bg-gray-800 p-6 rounded-xl shadow-md text-center">
-          <h2 className="text-lg font-semibold text-gray-300">Total</h2>
-          <p className="text-2xl font-bold text-indigo-400">{stats.total}</p>
+      <div className="grid grid-cols-4 gap-6 mb-6">
+        <div className="bg-white shadow rounded-lg p-4 text-center">
+          <p className="text-lg font-semibold text-gray-600">Total</p>
+          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-xl shadow-md text-center">
-          <h2 className="text-lg font-semibold text-gray-300">Attended</h2>
-          <p className="text-2xl font-bold text-green-400">{stats.attended}</p>
+        <div className="bg-white shadow rounded-lg p-4 text-center">
+          <p className="text-lg font-semibold text-gray-600">Attended</p>
+          <p className="text-2xl font-bold text-green-600">{stats.attended}</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-xl shadow-md text-center">
-          <h2 className="text-lg font-semibold text-gray-300">Not Attended</h2>
-          <p className="text-2xl font-bold text-red-400">{stats.notAttended}</p>
+        <div className="bg-white shadow rounded-lg p-4 text-center">
+          <p className="text-lg font-semibold text-gray-600">Not Attended</p>
+          <p className="text-2xl font-bold text-red-600">{stats.notAttended}</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-xl shadow-md flex items-center justify-center">
+        <div className="bg-white shadow rounded-lg p-4 flex items-center justify-center">
           <button
             onClick={exportCSV}
-            className="bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition"
+            className="bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-400 transition"
           >
             📥 Export CSV
           </button>
@@ -93,14 +110,14 @@ const EventLeads = () => {
       </div>
 
       {/* Pie Chart */}
-      <div className="flex justify-center mb-10">
+      <div className="flex justify-center mb-6 bg-white shadow rounded-lg p-6">
         <PieChart width={400} height={300}>
           <Pie
             data={chartData}
             dataKey="value"
             cx="50%"
             cy="50%"
-            outerRadius={110}
+            outerRadius={100}
             label
           >
             {chartData.map((entry, index) => (
@@ -113,16 +130,16 @@ const EventLeads = () => {
       </div>
 
       {/* Search & Filter */}
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-4">
         <input
           type="text"
-          placeholder="🔍 Search by name or ID..."
-          className="px-4 py-2 rounded-lg text-black w-1/3 focus:outline-none"
+          placeholder="Search by name or ID..."
+          className="px-3 py-2 rounded-lg border w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
-          className="px-4 py-2 rounded-lg text-black"
+          className="px-3 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -133,31 +150,29 @@ const EventLeads = () => {
       </div>
 
       {/* Students Table */}
-      <div className="overflow-hidden rounded-xl shadow-lg">
+      <div className="bg-white shadow rounded-lg overflow-hidden">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gray-800 text-indigo-300">
-              <th className="p-4 text-left">Student ID</th>
-              <th className="p-4 text-left">Name</th>
-              <th className="p-4 text-left">Status</th>
+            <tr className="bg-gray-200 text-gray-700">
+              <th className="p-3 text-left">Student ID</th>
+              <th className="p-3 text-left">Name</th>
+              <th className="p-3 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
-            {filteredStudents.map((student, index) => (
+            {filteredStudents.map((student) => (
               <tr
                 key={student.id}
-                className={`cursor-pointer transition ${
-                  index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"
-                } hover:bg-gray-700`}
+                className="hover:bg-gray-100 cursor-pointer"
                 onClick={() => navigate(`/student/${student.id}`)}
               >
-                <td className="p-4">{student.id}</td>
-                <td className="p-4">{student.name}</td>
+                <td className="p-3 border-t">{student.id}</td>
+                <td className="p-3 border-t">{student.name}</td>
                 <td
-                  className={`p-4 font-semibold ${
+                  className={`p-3 border-t font-semibold ${
                     student.status === "Attended"
-                      ? "text-green-400"
-                      : "text-red-400"
+                      ? "text-green-600"
+                      : "text-red-600"
                   }`}
                 >
                   {student.status}
