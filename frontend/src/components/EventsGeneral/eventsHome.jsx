@@ -172,51 +172,6 @@ const EventsPage = () => {
           </div>
         </div>
       )}
-
-      {/* {registerEvent && (
-        <div
-          className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-black/10 z-50"
-          onClick={() => setRegisterEvent(null)}
-        >
-          <div
-            className="bg-white rounded-xl shadow-lg p-6 max-w-md w-full animate-fadeIn"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-          >
-            <h2 className="text-lg font-semibold mb-4">
-              Register for {registerEvent.name}
-            </h2>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Student ID
-                </label>
-                <input
-                  type="text"
-                  className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="Enter your student ID"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Event Name
-                </label>
-                <input
-                  type="text"
-                  value={registerEvent.name}
-                  readOnly
-                  className="w-full mt-1 px-3 py-2 border rounded-lg bg-gray-100 text-gray-600"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

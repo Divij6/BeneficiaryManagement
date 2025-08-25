@@ -29,7 +29,8 @@ const router = createBrowserRouter(
       {/* Main app routes (with Header + Footer) */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="events" element={<UnverifiedEvents /> } />
+        {/* <Route path="events" element={<UnverifiedEvents /> } /> */}
+        <Route path="events" element={<Events /> } />
         <Route
           path="dashboard"
           element={
